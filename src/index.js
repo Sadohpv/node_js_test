@@ -1,29 +1,20 @@
+import express from "express";
+import configViewEngine from "./config/viewEngine";
+import initWebRoute from "./routes/web";
 
-import express  from 'express';
-import configViewEngine from './config/viewEngine';
-require('dotenv').config();
-
-
-const port = process.env.PORT || 2110; // Trường hợp PORT undefined
+require("dotenv").config();
 
 const app = express();
+const port = process.env.PORT || 2110; // Trường hợp PORT undefined
+
+// setup iew engine
+
 configViewEngine(app);
 
+// init Web routes
 
-
-
-
-
-app.get('/', (req, res) => {
-    res.render('index.ejs');
-})
-
-app.get('/about', (req, res) => {
-    res.json({
-        success: 'test nodejs created',
-    })
-})
+initWebRoute(app);
 
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+    console.log(`App listening on port ${port}`);
+});
