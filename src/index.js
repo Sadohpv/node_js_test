@@ -2,10 +2,15 @@ import express from "express";
 import configViewEngine from "./config/viewEngine";
 import initWebRoute from "./routes/web";
 
+
+
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 2110; // Trường hợp PORT undefined
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 // setup iew engine
 
