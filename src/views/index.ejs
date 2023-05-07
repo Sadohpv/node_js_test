@@ -2,8 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            http-equiv="X-UA-Compatible"
+            content="IE=edge"
+        />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
         <link
             rel="stylesheet"
             href="https://www.w3schools.com/w3css/4/w3.css"
@@ -39,39 +45,61 @@
                     <td><%= dataUser[i].firstName %></td>
                     <td><%= dataUser[i].lastName %></td>
                     <td>
-                        <a href="/detail/user/<%= dataUser[i].id%>">
+                        <a
+                            href="/detail/user/<%= dataUser[i].id%>"
+                        >
                             <button>Details</button>
                         </a>
-
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <form
+                            action="/edit-user/<%= dataUser[i].id%>"
+                            method="get"
+                        >
+                            <button type="submit">
+                                Edit
+                            </button>
+                        </form>
+                        <form
+                            action="/delete-user"
+                            method="POST"
+                        >
+                            <input
+                                type="text"
+                                hidden
+                                value="<%= dataUser[i].id%>"
+                                name="userIdDelete"
+                            />
+                            <button type="submit">
+                                Delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 <% } %>
             </table>
         </div>
         <form action="/create-user" method="POST">
-
             <div class="create-user-container">
                 <div><b> Create a new user </b></div>
                 <div>
                     <label>Fist Name</label>
-                    <input type="text" name="firstName"/>
+                    <input type="text" name="firstName" />
                 </div>
                 <div>
                     <label>Last Name</label>
-                    <input type="text" name="lastName"/>
+                    <input type="text" name="lastName" />
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="email" name="email"/>
+                    <input type="email" name="email" />
                 </div>
                 <div>
                     <label>Address</label>
-                    <input type="text" name="address"/>
+                    <input type="text" name="address" />
                 </div>
                 <div>
-                    <button type="submit" class="butsub">Submit</button>
+                    <button type="submit" class="butsub">
+                        Submit
+                    </button>
                 </div>
             </div>
         </form>
