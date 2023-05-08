@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link
+            rel="stylesheet"
+            href="https://www.w3schools.com/w3css/4/w3.css"
+        />
+        <link rel="stylesheet" href="css/styles.css" />
+        <title>NoceJS Basic</title>
+    </head>
+    <style></style>
+    <body>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/uploadFile" class="active">Upload File</a>
+        </div>
+
+        <div>
+            <form
+                method="POST"
+                class="upload-file"
+                action="/uploadFile"
+                enctype="multipart/form-data"
+            >
+                <div>
+                    <label> Avatar </label>
+                    <input type="file" name="choose-file"  />
+                </div>
+                <div>
+                    <button type="submit" class="butsub">
+                        Save File
+                    </button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

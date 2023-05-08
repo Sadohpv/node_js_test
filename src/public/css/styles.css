@@ -60,3 +60,9 @@ h1{
     opacity: 0.8;
     cursor: pointer;
 }
+
+.upload-file{
+    display: flex;
+    align-items: center;
+}
+

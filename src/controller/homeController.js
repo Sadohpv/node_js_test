@@ -1,3 +1,5 @@
+import multer from "multer";
+import path from "path";
 import connectPool from "../config/connectDB";
 
 let getHomePage = async (req, res) => {
@@ -42,10 +44,9 @@ let createUser = async (req, res) => {
 
 let deleteUser = async (req, res) => {
     let { userIdDelete } = req.body;
-    await connectPool.execute(
-        "DELETE FROM users1 WHERE id=?",
-        [userIdDelete]
-    );
+    await connectPool.execute("DELETE FROM users1 WHERE id=?", [
+        userIdDelete,
+    ]);
     return res.redirect("/");
 };
 let editUser = async (req, res) => {
@@ -62,14 +63,46 @@ let editUser = async (req, res) => {
     // })
 };
 let updateUser = async (req, res) => {
-    let { firstName, lastName, email, address, id } =
-        req.body;
+    let { firstName, lastName, email, address, id } = req.body;
     await connectPool.execute(
         "UPDATE users1 SET firstName=? , lastName=?, email=?,address=? WHERE id=?",
         [firstName, lastName, email, address, id]
     );
 
     return res.redirect("/");
+};
+
+let getUploadFile = async (req, res) => {
+    return res.render("uploadFile.ejs");
+};
+
+// Handle upload file from here
+
+
+let upload = multer().single("choose-file");
+let postUploadFile = async (req, res) => {
+
+
+    upload(req, res, (err) => {
+        if (req.fileValidationError) {
+            return res.send(req.fileValidationError);
+        } else if (!req.file) {
+            return res.send("No file selected");
+        } else if (err instanceof multer.MulterError) {
+            // Trường hợp lỗi của thư viện trả về lỗi của thư viện
+            return res.json({
+                errLib: err,
+            });
+        } else if (err) {
+            // Trường hợp các lỗi còn lại trả về lỗi
+            return res.json({
+                error: err,
+              
+            });
+        }
+       
+        res.json();
+    });
 };
 module.exports = {
     getHomePage: getHomePage,
@@ -78,4 +111,6 @@ module.exports = {
     deleteUser,
     editUser,
     updateUser,
+    getUploadFile,
+    postUploadFile,
 };
