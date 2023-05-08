@@ -78,11 +78,10 @@ let getUploadFile = async (req, res) => {
 
 // Handle upload file from here
 
+let upload = multer().single("choose-file"); // For upload single file
+// let uploadMulti = multer().array("choose-file");
 
-let upload = multer().single("choose-file");
 let postUploadFile = async (req, res) => {
-
-
     upload(req, res, (err) => {
         if (req.fileValidationError) {
             return res.send(req.fileValidationError);
@@ -97,12 +96,49 @@ let postUploadFile = async (req, res) => {
             // Trường hợp các lỗi còn lại trả về lỗi
             return res.json({
                 error: err,
-              
             });
         }
-       
+
         res.json();
     });
+};
+
+let postMultiUploadFile = async (req, res) => {
+   
+        if (req.fileValidationError) {
+            return res.send(req.fileValidationError);
+        } else if (!req.files) {
+            return res.send("No file selected");
+        }
+        // } else if (err instanceof multer.MulterError) {
+        //     // Trường hợp lỗi của thư viện trả về lỗi của thư viện
+        //     return res.json({
+        //         errLib: err,
+        //     });
+        // } else if (err) {
+        //     // Trường hợp các lỗi còn lại trả về lỗi
+        //     return res.json({
+        //         error: err,
+        //     });
+        // }
+
+        let result = "You have uploaded these images: <hr/>";
+        const files = req.files;
+        console.log(files);
+        let index, len;
+
+        for (
+            index = 0, len = files.length;
+            index < files.length;
+            index++
+        ) {
+            result += `<img src="/image/${files[index].filename}" width="300" />`
+        }
+
+        result += '<hr/> <a href="/uploadFile">Upload more images</a>';
+        res.send(result);
+   
+    
 };
 module.exports = {
     getHomePage: getHomePage,
@@ -113,4 +149,5 @@ module.exports = {
     updateUser,
     getUploadFile,
     postUploadFile,
+    postMultiUploadFile,
 };

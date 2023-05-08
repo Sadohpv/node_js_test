@@ -48,12 +48,16 @@ const initWebRoute = (app) => {
     router.post("/update-user", homeController.updateUser);
 
     router.get("/uploadFile", homeController.getUploadFile);
+    // router.post(
+    //     "/uploadFile",
+    //     upload.single("choose-file"),
+    //     homeController.postUploadFile
+    // );
     router.post(
         "/uploadFile",
-        upload.single("choose-file"),
-        homeController.postUploadFile
+        upload.array("choose-file",5),
+        homeController.postMultiUploadFile
     );
-
     app.get("/about", (req, res) => {
         res.json({
             success: "test nodejs created",
