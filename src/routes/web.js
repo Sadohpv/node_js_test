@@ -48,11 +48,7 @@ const initWebRoute = (app) => {
     router.post("/update-user", homeController.updateUser);
 
     router.get("/uploadFile", homeController.getUploadFile);
-    // router.post(
-    //     "/uploadFile",
-    //     upload.single("choose-file"),
-    //     homeController.postUploadFile
-    // );
+
     router.post(
         "/uploadFile",
         upload.array("choose-file",5),
